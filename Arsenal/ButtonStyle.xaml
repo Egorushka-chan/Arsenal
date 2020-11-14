@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Arsenal">
+    <Style x:Key="ButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="#FF283E40"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontFamily" Value="Rockwell Extra Bold" />
+        <!--" Background="#FF283E40" Foreground="White" FontFamily="Rockwell Extra Bold"-->
+            <!--<Style.Triggers>
+            <EventTrigger RoutedEvent="Click">
+                <EventTrigger.Actions>
+                    <BeginStoryboard >
+                        <Storyboard>
+                            <ThicknessAnimation Storyboard.TargetProperty="Margin" Duration="0:0:1" To="50,19" AutoReverse="True"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Foreground" Value="Red"/>
+            </Trigger>
+        </Style.Triggers>-->
+    </Style>
+</ResourceDictionary>

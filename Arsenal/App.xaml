@@ -1,0 +1,9 @@
+﻿<Application x:Class="Arsenal.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Arsenal"
+             StartupUri="EnterWindow.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>

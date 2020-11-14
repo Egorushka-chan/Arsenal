@@ -1,0 +1,2 @@
+select `operators`.`First Name`, `operators`.`Last Name`, `operators`.`Login`, `security`.`password`
+FROM `operators` INNER JOIN `security` ON `operators`.`Login` = `security`.`Login`
