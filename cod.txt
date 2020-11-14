@@ -1,0 +1,43 @@
+            //MySqlDataAdapter dataAdapter;
+            //DataSet ds = new DataSet();
+            //string password = null;
+            //try
+            //{
+            //    string commandText = "SELECT password FROM security WHERE Login LIKE '" + loginBox.Text + "'";
+            //    dataAdapter = new MySqlDataAdapter(commandText, Data.ConnectionInfo);
+            //    dataAdapter.Fill(ds, "Пароль");
+            //    password = ds.Tables[0].Rows[0][0].ToString();
+            //}
+            //catch (MySqlException)
+            //{
+            //    Error(true, "Невозможно подключится к серверу");
+            //    return;
+            //}
+            //catch (System.IndexOutOfRangeException) { }
+
+               //try
+               //{
+               //    string commandText = "SELECT * FROM security WHERE Login LIKE '" + loginBox.Text + "' AND password LIKE '" + passwordBox.Password + "'";
+               //    dataAdapter = new MySqlDataAdapter(commandText, Data.ConnectionInfo);
+               //    dataAdapter.Fill(ds, "Пароль");
+               //    //password = ds.Tables[0].Rows[0][0].ToString();
+               //}
+               //catch (MySqlException)
+               //{
+               //    Error(true, "Невозможно подключится к серверу");
+               //    return;
+               //}
+               //catch (System.IndexOutOfRangeException) { }
+                //if (ds.Tables[0].Rows.Count == 1)
+                //{
+                //    DialogResult = true;
+                //}
+                //else
+                //    Error(true, "Неверные данные");
+
+            //if (passwordBox.Password == password)
+            //{
+            //    DialogResult = true;
+            //}
+            //else
+            //    Error(true, "Неверные данные");

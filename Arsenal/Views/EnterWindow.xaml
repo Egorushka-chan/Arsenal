@@ -7,15 +7,23 @@
         mc:Ignorable="d"
         Title="EnterWindow" Height="180" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" >
     <Window.Resources>
-        <ResourceDictionary Source="ButtonStyle.xaml"/>
+        <ResourceDictionary Source="/Arsenal;component/ButtonStyle.xaml" />
     </Window.Resources>
     <Grid PreviewKeyDown="Grid_PreviewKeyDown">
         <TextBox x:Name="loginBox" Margin="32,60,32,94" TextWrapping="Wrap" Text="Введите логин для входа"  Foreground="#FF787878" LostFocus="loginBox_LostFocus" GotFocus="loginBox_GotFocus"/>
         <TextBox x:Name="passBox" Margin="32,104,32,50" TextWrapping="Wrap" Panel.ZIndex="1" Text="Введите пароль для входа"  Foreground="#FF787878" GotFocus="passwordBox_GotFocus" LostFocus="passwordBox_LostFocus"/>
         <Button Content="ВХОД" Margin="74,144,74,10" Click="Button_Click" Style="{DynamicResource ButtonStyle}"/>
-        <Image HorizontalAlignment="Left" Height="45" Margin="10,10,0,0" VerticalAlignment="Top" Width="280"/>
+        <Image HorizontalAlignment="Left" Height="45" Margin="10,10,0,0" VerticalAlignment="Top" Width="280" Source="/Arsenal;component/Images/логотип.png" Stretch="Fill"/>
         <Button x:Name="exitButton" Content="" HorizontalAlignment="Left" Margin="225,0,0,0" VerticalAlignment="Top" Width="75" Height="10" Background="#FFFF3737" Click="exitButton_Click"/>
         <PasswordBox x:Name="passwordBox" Panel.ZIndex="0" Margin="32,104,32,50" LostFocus="passwordBox_LostFocus_1"/>
-
+        <Label x:Name="errorLabel" Content="Неверные данные" HorizontalAlignment="Left" Margin="32,83,0,0" VerticalAlignment="Top" Height="28" Width="248" FontFamily="Rockwell Extra Bold" Foreground="Red" Visibility="Hidden"/>
+        <Label Content="Забыли пароль?" HorizontalAlignment="Left" Margin="197,126,0,0" VerticalAlignment="Top" FontSize="8" Width="71" Foreground="#FF297C70" MouseDown="Label_MouseDown"/>
+        <Button x:Name="settingButton" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Center" Margin="248,147,32,13" Background="#FFF1F1F1" Click="settingButton_Click">
+            <StackPanel Orientation="Horizontal">
+                <Image Width="16" Height="16"  Source="/Arsenal;component/Images/settings.png"/>
+            </StackPanel>
+        </Button>
     </Grid>
 </Window>

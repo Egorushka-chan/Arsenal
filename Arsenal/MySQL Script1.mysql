@@ -1,2 +1,3 @@
-select `operators`.`First Name`, `operators`.`Last Name`, `operators`.`Login`, `security`.`password`
-FROM `operators` INNER JOIN `security` ON `operators`.`Login` = `security`.`Login`
+SELECT `loaders`.`First Name` AS `Имя`, `loaders`.`Last Name` AS `Фамилия`, `loaders`.`Patronymic` AS `Отчество`, COUNT(`issue`.`shifts_IDshift`)
+From ((`loaders` INNER JOIN `shifts` ON `shifts`.`PN` = `loaders`.`PN`) INNER JOIN `issue` ON `shifts`.`IDshift` = `issue`.`shifts_IDshift`)
+GROUP BY `loaders`.`First Name`, `loaders`.`Last Name`, `loaders`.`Patronymic`

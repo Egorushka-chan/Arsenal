@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,9 +24,9 @@ namespace Arsenal
         public EnterWindow()
         {
             InitializeComponent();
-            MySqlConnection connection = new MySqlConnection(Data.Connection);
         }
 
+        public static int OperatorID { get; private set; }
 
         private void loginBox_LostFocus(object sender, RoutedEventArgs e)
         {
@@ -42,6 +43,7 @@ namespace Arsenal
             {
                 loginBox.Text = null;
                 loginBox.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF000000"));
+                Error(false);
             }
         }
 
@@ -54,6 +56,7 @@ namespace Arsenal
             //}
             passwordBox.Focus();
             Panel.SetZIndex(passwordBox, 2);
+            Error(false);
         }
 
         private void passwordBox_LostFocus(object sender, RoutedEventArgs e)
@@ -84,7 +87,60 @@ namespace Arsenal
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(Properties.Settings.Default["BaseConnection"].ToString()))
+                {
+                    MySqlCommand command = new MySqlCommand();
+                    command.CommandText = "SELECT PN FROM operator WHERE Login LIKE '" + loginBox.Text + "' AND Password LIKE '" + passwordBox.Password + "'";
+                    command.Connection = connection;
+
+                    connection.Open();
+                    string data = Convert.ToString(command.ExecuteScalar());
+                    bool res = null == data;
+                    connection.Close();
+                    if (res || data == string.Empty)
+                    {
+                        Error(true, "Неверные данные");
+                    }
+                    else
+                    {
+                        OperatorID = int.Parse(data);
+                        DialogResult = true;
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                Error(true, "Невозможно подключится к серверу");
+                MessageBox.Show(ex.Message + " " + ex.StackTrace + " " + ex.Source);
+                return;
+            }
+        }
+
+        private void Label_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("Вспомни", "Пароль", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        void Error(bool IsMarkOn, string text = "Ошибка")
+        {
+            switch (IsMarkOn)
+            {
+                case true:
+                    errorLabel.Visibility = Visibility.Visible;
+                    break;
+                case false:
+                    errorLabel.Visibility = Visibility.Hidden;
+                    break;
+            }
+            errorLabel.Content = text;
+        }
+
+        private void settingButton_Click(object sender, RoutedEventArgs e)
+        {
+            ConnectionDialogWindow dialogWindow = new ConnectionDialogWindow();
+            dialogWindow.ShowDialog();
         }
     }
 }

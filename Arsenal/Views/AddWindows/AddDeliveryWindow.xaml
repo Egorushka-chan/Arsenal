@@ -1,0 +1,15 @@
+﻿<Window x:Class="Arsenal.Views.AddWindows.AddDeliveryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Arsenal.Views.AddWindows"
+        mc:Ignorable="d"
+        Title="AddDeliveryWindow" Height="450" Width="800">
+    <Viewbox Stretch="Fill">
+        <Canvas Width="800" Height="450">
+            <Button Content="Назад" Height="27" Canvas.Left="621" Canvas.Top="399" Width="169" Style="{StaticResource RoundedButtonStyle}" Background="#FF403628" IsDefault="True" Click="Button_Click"/>
+
+        </Canvas>
+    </Viewbox>
+</Window>

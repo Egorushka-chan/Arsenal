@@ -4,10 +4,191 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Arsenal"
+        xmlns:viewModel ="clr-namespace:Arsenal.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="630" Width="1200" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" ResizeMode="CanResizeWithGrip" MinWidth="600" MinHeight="315">
+    <Window.DataContext>
+        <viewModel:MainViewModel/>
+    </Window.DataContext>
     <Grid>
-        <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="224,122,0,0" VerticalAlignment="Top"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="21"/>
+            <RowDefinition Height="75*"/>
+            <RowDefinition Height="269*"/>
+            <RowDefinition Height="265*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="313*"/>
+            <ColumnDefinition Width="157*"/>
+            <ColumnDefinition Width="130*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="2" Grid.RowSpan="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="14*"/>
+                <ColumnDefinition Width="158*"/>
+                <ColumnDefinition Width="77*"/>
+                <ColumnDefinition Width="9*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="21*"/>
+                <RowDefinition Height="216*"/>
+                <RowDefinition Height="21*"/>
+                <RowDefinition Height="341*"/>
+            </Grid.RowDefinitions>
+            <Viewbox Stretch="Fill" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1">
+                <Calendar VerticalAlignment="Stretch" HorizontalAlignment ="Stretch"/>
+            </Viewbox>
+            <StackPanel Grid.Row="3" Grid.ColumnSpan="3" VerticalAlignment="Stretch" HorizontalAlignment ="Stretch">
+                <Button Content="Операции с базой" Style="{DynamicResource ButtonStyle}" Margin="10,10" Height="30" Command="{Binding BaseActionOpen}"/>
+                <Button Content="Анализ" Style="{DynamicResource ButtonStyle}" Margin="10,10" Height="30" Visibility="Hidden"/>
+                <Button Content="Операторы" Style="{DynamicResource ButtonStyle}" Margin="10,10" Height="30" Command="{Binding OperatorsOpen}"/>
+                <Button Content="История" Style="{DynamicResource ButtonStyle}" Margin="10,10" Height="30"/>
+                <Button Content="Настройки" Style="{DynamicResource ButtonStyle}" Margin="10,10" Height="30"/>
+                <Button x:Name="exitButtonMenu" Content="Выход" Style="{DynamicResource ButtonStyle}" Margin="10,50" Height="30" Background="#FF5B2525" Click="exitButton_Click"/>
+            </StackPanel>
 
+            <Viewbox Stretch="Fill" Grid.Row="2" Grid.Column="2">
+                <Label x:Name="timeLabel" Content="00:00" HorizontalContentAlignment="Center" VerticalAlignment="Stretch" HorizontalAlignment ="Stretch" FontSize="72"/>
+            </Viewbox>
+
+        </Grid>
+        <Rectangle Fill="#FFF4F4F5" Stroke="Black" HorizontalAlignment="Right" Width="10" Margin="0,18,0,0" Grid.RowSpan="4" Grid.Column="1"/>
+        <Rectangle Fill="Black" Stroke="Black" Grid.ColumnSpan="3" Height="3" VerticalAlignment="Bottom" Panel.ZIndex="2"/>
+        <Grid x:Name="headingGrid" Grid.ColumnSpan="3" MouseLeftButtonDown="headingGrid_MouseLeftButtonDown">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="395*"/>
+                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="13*"/>
+                <ColumnDefinition Width="739*"/>
+                <ColumnDefinition Width="23*"/>
+                <ColumnDefinition Width="23*"/>
+            </Grid.ColumnDefinitions>
+            <Rectangle Grid.Column="2" Fill="Black" HorizontalAlignment="Left" Height="25" Stroke="Black" VerticalAlignment="Top" Width="6" RenderTransformOrigin="0.5,0.5" Margin="1,-4,0,0">
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="37.006"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+            <Viewbox Grid.ColumnSpan="2" Stretch="Fill">
+                <Label x:Name="labelFIO" Content="вася агент" VerticalAlignment="Stretch" HorizontalAlignment ="Stretch" FontFamily="Comic Sans MS"/>
+            </Viewbox>
+            <Image Grid.Column="1" Grid.ColumnSpan="5" Source="Images/header.png" Stretch="Fill"/>
+            <Button Content="X" Grid.Column="5" Background="Red" Foreground="White" FontFamily="Rockwell Extra Bold" Opacity="0.6" Click="exitButton_Click" />
+            <Button Content="-" Grid.Column="4" Background="#FF008BFF" Foreground="White" FontFamily="Rockwell Extra Bold" Opacity="0.6" Click="minimizeButton_Click"/>
+        </Grid>
+        <Rectangle Fill="#FFB9B9B9" Grid.Row="3" Stroke="White" Grid.ColumnSpan="3" Height="3" VerticalAlignment="Bottom" 
+                   Cursor="SizeNS" MouseLeftButtonDown="Move_MouseLeftButtonDown" MouseLeftButtonUp="Move_MouseLeftButtonUp" MouseMove="VerticalMove_MouseMove" />
+        <Rectangle Fill="#FFB9B9B9" HorizontalAlignment="Left" Grid.Row="1" Stroke="White" Width="3"
+                   Cursor="SizeWE" Grid.RowSpan="3" />
+        <Rectangle Fill="#FFB9B9B9" Grid.Row="1" Stroke="White"
+            Cursor="SizeWE" Grid.Column="2" HorizontalAlignment="Right" Width="3" Grid.RowSpan="3" MouseLeftButtonDown="Move_MouseLeftButtonDown" MouseLeftButtonUp="Move_MouseLeftButtonUp" MouseMove="HorizontalMove_MouseMove"/>
+        <Viewbox Grid.Row="1" Grid.RowSpan="3" Grid.ColumnSpan="2" Margin="0,0,10,0" Stretch="Fill">
+            <Canvas HorizontalAlignment="Left" Height="606" Margin="3,0,0,0"  VerticalAlignment="Top" Width="927" Grid.RowSpan="3" Grid.ColumnSpan="2">
+                <Label Content="Склад" HorizontalAlignment="Left" Margin="182,31,0,0" VerticalAlignment="Top" Height="40" Width="101"
+               VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="22" FontFamily="Comic Sans MS"/>
+                <GroupBox Header="Оружие" HorizontalAlignment="Left" Height="204" Margin="28,91,0,0" VerticalAlignment="Top" Width="585">
+                    <DataGrid ColumnWidth="*" FontSize="20" x:Name="weaponTable" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Top" ItemsSource="{Binding WeaponView}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Path=ID}"/>
+                            <DataGridTextColumn Header="Название" Binding="{Binding Path=item.Name}" FontWeight="Bold"/>
+                            <DataGridTextColumn Header="Количество" Binding="{Binding Path=Quantity}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </GroupBox>
+                <GroupBox Header="Патроны" HorizontalAlignment="Left" Height="204" VerticalAlignment="Top" Width="494" Canvas.Left="28" Canvas.Top="352">
+                    <DataGrid IsReadOnly="True" ColumnWidth="*" FontSize="20" AutoGenerateColumns="False" x:Name="ammunitionTable" VerticalAlignment="Top" ItemsSource="{Binding AmmoView}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Path=ID}"/>
+                            <DataGridTextColumn Header="Название" Binding="{Binding Path=item.Name}" FontWeight="Bold"/>
+                            <DataGridTextColumn Header="Количество" Binding="{Binding Path=Quantity}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </GroupBox>
+                <Label x:Name="labelAmmoCount" ContentStringFormat="Статей хранения: {0}" Content="{Binding Items.Count}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="136" Height="26" Canvas.Left="386" Canvas.Top="570"/>
+                <Label Content="Потери" HorizontalAlignment="Left" Margin="731,32,0,0" VerticalAlignment="Top" Height="40" Width="101"
+            VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="22" FontFamily="Rockwell Extra Bold"/>
+                <StackPanel HorizontalAlignment="Left" Height="223" Margin="633,82,0,0" VerticalAlignment="Top" Width="289">
+                    <Label Content="{Binding Loses[0]}" FontSize="20"/>
+                    <Label Content="{Binding Loses[1]}" FontSize="20"/>
+                    <Label Content="{Binding Loses[2]}" FontSize="20"/>
+                    <Label Content="{Binding Loses[3]}" FontSize="20"/>
+                    <Label Content="{Binding Loses[4]}" FontSize="20"/>
+                    <Label Content="{Binding Loses[5]}" FontSize="20"/>
+                </StackPanel>
+                <Label HorizontalAlignment="Left" Margin="782,305,0,0" VerticalAlignment="Top" Width="145">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Около "/>
+                        <Label Content="{Binding Loses.Count}" Foreground="#FFA20000" />
+                        <Label Content=" пунктов..."/>
+                    </StackPanel>
+                </Label>
+                <Label Content="Лучшие грузчики" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="198"
+            VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="22" FontFamily="Comic Sans MS" Canvas.Left="618" Canvas.Top="352"/>
+                <Label x:Name="labelFirstLoader" HorizontalAlignment="Left" VerticalAlignment="Top" Width="674" FontSize="18" Background="{x:Null}" Foreground="Gold" Canvas.Left="552" Canvas.Top="397" Height="33">
+                    <Label.Content>
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="1. " Foreground="Gold"></TextBlock>
+                            <TextBlock Text="{Binding BestLoaders[0].First_Name}"  Grid.Column="1" Foreground="Gold"/>
+                            <TextBlock Text=" " Grid.Column="2"></TextBlock>
+                            <TextBlock Text="{Binding BestLoaders[0].Last_Name}"  Grid.Column="3" Foreground="Gold"></TextBlock>
+                            <TextBlock Text=" "  Grid.Column="4"></TextBlock>
+                            <TextBlock Text="{Binding BestLoaders[0].Patronymic}"  Grid.Column="5" Foreground="Gold"/>
+                        </Grid>
+                    </Label.Content>
+                </Label>
+                <Label x:Name="labelSecondLoader" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="674" FontSize="18" Background="{x:Null}"  Canvas.Left="552" Canvas.Top="474" Height="33">
+                    <Label.Content>
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="2. " Foreground="Silver"></TextBlock>
+                            <TextBlock Text="{Binding BestLoaders[1].First_Name}"  Grid.Column="1" Foreground="Silver"/>
+                            <TextBlock Text=" " Grid.Column="2"></TextBlock>
+                            <TextBlock Text="{Binding BestLoaders[1].Last_Name}"  Grid.Column="3" Foreground="Silver"></TextBlock>
+                            <TextBlock Text=" "  Grid.Column="4"></TextBlock>
+                            <TextBlock Text="{Binding BestLoaders[1].Patronymic}"  Grid.Column="5" Foreground="Silver"/>
+                        </Grid>
+                    </Label.Content>
+                </Label>
+                <Label x:Name="labelThirdLoader" HorizontalAlignment="Left" VerticalAlignment="Top" Width="355" FontSize="18" Background="{x:Null}"  Canvas.Left="552" Canvas.Top="555" Height="33">
+                    <Label.Content>
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="3. " Foreground="#FFB87333"></TextBlock>
+                            <TextBlock Text="{Binding BestLoaders[2].First_Name}"  Grid.Column="1" Foreground="#FFB87333"/>
+                            <TextBlock Text=" " Grid.Column="2"></TextBlock>
+                            <TextBlock Text="{Binding BestLoaders[2].Last_Name}"  Grid.Column="3" Foreground="#FFB87333"></TextBlock>
+                            <TextBlock Text=" "  Grid.Column="4"></TextBlock>
+                            <TextBlock Text="{Binding BestLoaders[2].Patronymic}"  Grid.Column="5" Foreground="#FFB87333"/>
+                        </Grid>
+                    </Label.Content>
+                </Label>
+            </Canvas>
+        </Viewbox>
     </Grid>
 </Window>

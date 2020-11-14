@@ -14,6 +14,7 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,7 +27,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -50,12 +50,37 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.3.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\MySQL\Connector NET 8.0\Assemblies\v4.5.2\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data, Version=8.0.21.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\MySQL\Connector NET 8.0\Assemblies\v4.5.2\MySql.Data.dll</HintPath>
     </Reference>
+    <Reference Include="MySql.Data.EntityFramework, Version=8.0.19.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\MySQL\Connector NET 8.0\Assemblies\v4.5.2\MySql.Data.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\MySQL\Connector NET 8.0\Assemblies\v4.5.2\Renci.SshNet.dll</HintPath>
+    </Reference>
+    <Reference Include="SshNet.Security.Cryptography, Version=1.2.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\MySQL\Connector NET 8.0\Assemblies\v4.5.2\SshNet.Security.Cryptography.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -74,11 +99,38 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\OperatorsViewModel.cs" />
+    <Compile Include="Views\AddWindows\AddOperarorWindow.xaml.cs">
+      <DependentUpon>AddOperarorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OperatorsWindow.xaml.cs">
+      <DependentUpon>OperatorsWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="ButtonStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="EnterWindow.xaml">
+    <Page Include="Views\AddWindows\AddDeliveryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddWindows\AddIssueWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddWindows\AddOperarorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BaseActionsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ConnectionDialogWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EnterWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -90,14 +142,43 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Data.cs" />
-    <Compile Include="EnterWindow.xaml.cs">
+    <Compile Include="Models\BaseVM.cs" />
+    <Compile Include="Models\DataBase\ArsenalDB.cs" />
+    <Compile Include="Models\DataBase\delivery.cs" />
+    <Compile Include="Models\DataBase\history.cs" />
+    <Compile Include="Models\DataBase\inventarisation.cs" />
+    <Compile Include="Models\DataBase\issue.cs" />
+    <Compile Include="Models\DataBase\item.cs" />
+    <Compile Include="Models\DataBase\loader.cs" />
+    <Compile Include="Models\DataBase\operator.cs" />
+    <Compile Include="Models\DataBase\storage.cs" />
+    <Compile Include="Models\DataBase\type.cs" />
+    <Compile Include="Models\MyCommand.cs" />
+    <Compile Include="ViewModels\BaseActionsVM.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Views\AddWindows\AddDeliveryWindow.xaml.cs">
+      <DependentUpon>AddDeliveryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddWindows\AddIssueWindow.xaml.cs">
+      <DependentUpon>AddIssueWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BaseActionsWindow.xaml.cs">
+      <DependentUpon>BaseActionsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConnectionDialogWindow.xaml.cs">
+      <DependentUpon>ConnectionDialogWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EnterWindow.xaml.cs">
       <DependentUpon>EnterWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\OperatorsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -117,6 +198,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -136,6 +218,24 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\логотип.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\header.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Схема БД.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\LogoPolice_UA.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Anarchy.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
