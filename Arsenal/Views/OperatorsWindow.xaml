@@ -10,23 +10,49 @@
         <Canvas Width="810" Height="450">
             <Label Content="{Binding SelectedOperator.FullName}" Canvas.Left="30" Canvas.Top="21" FontSize="20"/>
             <Label ContentStringFormat="Стаж: {0} дней" Content="{Binding SelectedOperator.GetExperience}" Canvas.Left="30" Canvas.Top="63" FontSize="20"/>
-            <Label ContentStringFormat="Дата рождения: {0}" Content="{Binding SelectedOperator.GetShortBirthDate}" Canvas.Left="30" Canvas.Top="105" FontSize="20"/>
+            <Label ContentStringFormat="Дата рождения: {0}" Content="{Binding SelectedOperator.GetShortBirthDate}" Canvas.Left="175" Canvas.Top="63" FontSize="20"/>
             <Label ContentStringFormat="Паспорт: {0}" Content="{Binding SelectedOperator.passport_ID}" Canvas.Left="30" Canvas.Top="360" FontSize="20"/>
 
-
+            <Border BorderBrush="Black" BorderThickness="1" Height="33" Canvas.Left="2" Canvas.Top="114" Width="452" CornerRadius="10">
+                <Grid Margin="4,0,35,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Имя" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Rockwell Extra Bold" FontSize="10" />
+                    <Label Content="Фамилия" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Rockwell Extra Bold" FontSize="10" Grid.Column="1" />
+                    <Label Content="Отчество" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Rockwell Extra Bold" FontSize="10" Grid.Column="2" />
+                    <Label Content="Работает с" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Rockwell Extra Bold" FontSize="10" Grid.Column="3" />
+                    <Label Content="Логин" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Rockwell Extra Bold" FontSize="10" Grid.Column="4" />
+                </Grid>
+            </Border>
+            <ListBox Height="213" Canvas.Left="5" Canvas.Top="147" Width="444" ItemsSource="{Binding OperationalOperator}" SelectedItem="{Binding SelectedOperator}" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Height="20" Width="411">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Path=First_Name}"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Path=Last_Name}"/>
+                            <TextBlock Grid.Column="2"  Text="{Binding Path=Patronymic}"/>
+                            <TextBlock Grid.Column="3"  Text="{Binding Path=GetShortHiringDate}"/>
+                            <TextBlock Grid.Column="4"  Text="{Binding Path=Login}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
             <Button Content="Назад" Height="27" Canvas.Left="631" Canvas.Top="399" Width="169" Style="{StaticResource RoundedButtonStyle}" Background="#FF403628" IsDefault="True" Click="Button_Click"/>
-            <DataGrid Height="213" AutoGenerateColumns="False" IsReadOnly="True" Canvas.Left="5" Canvas.Top="147" Width="444" ItemsSource="{Binding Operators}" SelectedItem="{Binding SelectedOperator}">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="PN" Binding="{Binding Path=PN}"/>
-                    <DataGridTextColumn Header="Имя" Binding="{Binding Path=First_Name}"/>
-                    <DataGridTextColumn Header="Фамилия" Binding="{Binding Path=Last_Name}"/>
-                    <DataGridTextColumn Header="Отчество" Binding="{Binding Path=Patronymic}"/>
-                    <DataGridTextColumn Header="Дата приема" Binding="{Binding Path=Hiring_date}"/>
-                    <DataGridTextColumn Header="Логин" Binding="{Binding Path=Login}"/>
-                </DataGrid.Columns>
-            </DataGrid>
-            <Button Content="Уволить" Canvas.Left="297" Canvas.Top="400" Width="152" Height="24" Style="{StaticResource RoundedButtonStyle}" Background="#FFE02B2B" BorderBrush="Black"/>
-            <Button Content="Новый оператор" Canvas.Left="5" Canvas.Top="391" Width="152" Height="41" Style="{StaticResource RoundedButtonStyle}" Background="#FF5CE02B" BorderBrush="Black" Foreground="#FF0B4714"/>
+
+            <Button Content="Уволить" Canvas.Left="297" Canvas.Top="400" Width="152" Height="24" Style="{StaticResource RoundedButtonStyle}" Background="#FF811A1A" BorderBrush="Black" Command="{Binding OpenDeleteOperator}"/>
+            <Button Content="Новый оператор" Canvas.Left="5" Canvas.Top="391" Width="152" Height="41" Style="{StaticResource RoundedButtonStyle}" Command="{Binding OpenAddOperator}" Background="#FF2F9E17" BorderBrush="Black" Foreground="White"/>
             <GroupBox Header="Я (Вы) (Ты) (Текущий оператор)" Height="349" Canvas.Left="467" Canvas.Top="21" Width="333" BorderBrush="Black">
                 <Grid>
                     <TextBlock Margin="10,21,10,0"  Text="{Binding CurrentOperator.FullName}" Height="36" TextAlignment="Center" VerticalAlignment="Top" FontSize="22" FontFamily="Century Gothic" FontWeight="Bold" TextDecorations="Underline"/>

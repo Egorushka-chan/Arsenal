@@ -29,7 +29,6 @@ namespace Arsenal
 
         public MainWindow()
         {
-            
             EnterWindow enterWindow = new EnterWindow();
             if (enterWindow.ShowDialog() != true)
             {

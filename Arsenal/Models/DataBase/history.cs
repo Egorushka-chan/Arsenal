@@ -21,7 +21,6 @@ namespace Arsenal.Models.DataBase
 
         public int PN { get; set; }
 
-        [Column(TypeName = "date")]
         public DateTime Date { get; set; }
 
         [StringLength(200)]

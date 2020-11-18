@@ -12,26 +12,24 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Arsenal.Views.AddWindows
+namespace Arsenal.Views
 {
     /// <summary>
-    /// Логика взаимодействия для AddIssueWindow.xaml
+    /// Логика взаимодействия для InventarisationWindow.xaml
     /// </summary>
-    public partial class AddIssueWindow : Window
+    public partial class InventarisationWindow : Window
     {
-        public AddIssueWindow()
+        public InventarisationWindow()
         {
             InitializeComponent();
         }
 
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = false;
-            Close();
+            
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             Close();
         }

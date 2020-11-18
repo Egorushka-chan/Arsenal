@@ -12,28 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Arsenal.Views.AddWindows
+namespace Arsenal.Views
 {
     /// <summary>
-    /// Логика взаимодействия для AddIssueWindow.xaml
+    /// Логика взаимодействия для ReportsWindow.xaml
     /// </summary>
-    public partial class AddIssueWindow : Window
+    public partial class ReportsWindow : Window
     {
-        public AddIssueWindow()
+        public ReportsWindow()
         {
             InitializeComponent();
-        }
-
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            this.DialogResult = false;
-            Close();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
         }
     }
 }

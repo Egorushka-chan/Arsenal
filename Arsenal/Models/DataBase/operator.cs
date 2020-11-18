@@ -45,6 +45,7 @@ namespace Arsenal.Models.DataBase
 
         [Required]
         [StringLength(45)]
+        [Index(IsUnique = true)]
         public string Login { get; set; }
 
         [Required]

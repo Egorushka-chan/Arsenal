@@ -33,5 +33,10 @@ namespace Arsenal.Models.DataBase
         public int Real_Quantity { get; set; }
 
         public virtual storage storage { get; set; }
+
+        public string GetShortDate
+        {
+            get => Date.ToShortDateString();
+        }
     }
 }

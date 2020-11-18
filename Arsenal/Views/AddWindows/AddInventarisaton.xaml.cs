@@ -15,25 +15,23 @@ using System.Windows.Shapes;
 namespace Arsenal.Views.AddWindows
 {
     /// <summary>
-    /// Логика взаимодействия для AddIssueWindow.xaml
+    /// Логика взаимодействия для AddInventarisaton.xaml
     /// </summary>
-    public partial class AddIssueWindow : Window
+    public partial class AddInventarisaton : Window
     {
-        public AddIssueWindow()
+        public AddInventarisaton()
         {
             InitializeComponent();
-        }
-
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            this.DialogResult = false;
-            Close();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void bt1_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
         }
     }
 }

@@ -39,6 +39,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -48,6 +49,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.3.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
@@ -59,6 +61,13 @@
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Word.15.0.4797.1003\lib\net20\Microsoft.Office.Interop.Word.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data, Version=8.0.21.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -99,12 +108,44 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\HistoryViewModel.cs" />
     <Compile Include="ViewModels\OperatorsViewModel.cs" />
+    <Compile Include="ViewModels\ReportsViewModel.cs" />
+    <Compile Include="Views\AddWindows\AddInventarisaton.xaml.cs">
+      <DependentUpon>AddInventarisaton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddWindows\AddItemWindow.xaml.cs">
+      <DependentUpon>AddItemWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddWindows\AddLoaderWindow.xaml.cs">
+      <DependentUpon>AddLoaderWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddWindows\AddLoginPassword.xaml.cs">
+      <DependentUpon>AddLoginPassword.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddWindows\AddNoteInHistoryWindow.xaml.cs">
+      <DependentUpon>AddNoteInHistoryWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AddWindows\AddOperarorWindow.xaml.cs">
       <DependentUpon>AddOperarorWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AddWindows\DeleteOperatorWindow.xaml.cs">
+      <DependentUpon>DeleteOperatorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HistoryWindow.xaml.cs">
+      <DependentUpon>HistoryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InventarisationWindow.xaml.cs">
+      <DependentUpon>InventarisationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\OperatorsWindow.xaml.cs">
       <DependentUpon>OperatorsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReportsWindow.xaml.cs">
+      <DependentUpon>ReportsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="ButtonStyle.xaml">
       <SubType>Designer</SubType>
@@ -114,11 +155,35 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AddWindows\AddInventarisaton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AddWindows\AddIssueWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AddWindows\AddItemWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddWindows\AddLoaderWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddWindows\AddLoginPassword.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddWindows\AddNoteInHistoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AddWindows\AddOperarorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddWindows\DeleteOperatorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -175,7 +240,23 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\HistoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InventarisationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\OperatorsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ReportsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

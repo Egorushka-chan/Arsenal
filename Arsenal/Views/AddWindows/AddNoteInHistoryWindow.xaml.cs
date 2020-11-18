@@ -15,25 +15,21 @@ using System.Windows.Shapes;
 namespace Arsenal.Views.AddWindows
 {
     /// <summary>
-    /// Логика взаимодействия для AddIssueWindow.xaml
+    /// Логика взаимодействия для AddNoteInHistoryWindow.xaml
     /// </summary>
-    public partial class AddIssueWindow : Window
+    public partial class AddNoteInHistoryWindow : Window
     {
-        public AddIssueWindow()
+        public AddNoteInHistoryWindow()
         {
             InitializeComponent();
         }
 
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            this.DialogResult = false;
-            Close();
-        }
+        public string Text { get; set; }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            Text = tb1.Text;
+            DialogResult = true;
         }
     }
 }

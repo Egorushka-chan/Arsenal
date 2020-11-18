@@ -5,11 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Arsenal.Views.AddWindows"
         mc:Ignorable="d"
-        Title="AddIssueWindow" Height="450" Width="800">
-    <Viewbox Stretch="Fill">
-        <Canvas Width="800" Height="450">
-            <Button Content="Назад" Height="27" Canvas.Left="621" Canvas.Top="399" Width="169" Style="{StaticResource RoundedButtonStyle}" Background="#FF403628" IsDefault="True" Click="Button_Click_1"/>
+        Title="Новая отставка" Height="220.833" Width="300" MinWidth="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" ShowInTaskbar="False" WindowStyle="ToolWindow"
+        SizeToContent="WidthAndHeight">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
-        </Canvas>
-    </Viewbox>
+        <Label Content="Дата поставки: " Margin="5"/>
+        <Label Content="Грузчик: " Margin="5" Grid.Row="1"/>
+        <DatePicker x:Name="tb1" Grid.ColumnSpan="1" Margin="5" Grid.Column="1" SelectedDate="{Binding NewIssue.Date}" SelectedDateFormat="Short"/>
+        <ComboBox x:Name="tb2" Grid.ColumnSpan="1" Grid.Column="1" Grid.Row="1" Margin="5" ItemsSource="{Binding OperationalLoader}" SelectedItem="{Binding NewIssue.loader, UpdateSourceTrigger=PropertyChanged}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <ContentControl Content="{Binding FullName}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <ComboBox x:Name="tb3" Grid.ColumnSpan="1" Margin="5" Grid.Row="2" Grid.Column="1" ItemsSource="{Binding ExistingStorages}" SelectedItem="{Binding NewIssue.storage, UpdateSourceTrigger=PropertyChanged}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <ContentControl Content="{Binding FullInfo}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        
+        <Label Content="Лот хранилища:" Margin="5" Grid.Row="2"/>
+
+        <StackPanel Grid.ColumnSpan="2" HorizontalAlignment="Right" Grid.Row="4" Orientation="Horizontal">
+            <Button x:Name="bt1" Content="OK" Width="75" Margin="5" IsDefault="True" Style="{StaticResource ButtonStyle}" Click="Button_Click" Command="{Binding AddIssue}"/>
+            <Button Content="Отмена" Width="75" Margin="5" IsCancel="True" Click="Button_Click" Style="{StaticResource ButtonStyle}"/>
+        </StackPanel>
+    </Grid>
 </Window>

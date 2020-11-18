@@ -5,30 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Arsenal.Views"
         mc:Ignorable="d"
-        Title="BaseActionsWindow" Height="500" Width="1000">
+        Title="BaseActionsWindow" Height="500" Width="1000" WindowStartupLocation="CenterScreen">
     <Viewbox Stretch="Fill">
         <Canvas Height="500" Width="1000">
-            <DataGrid IsReadOnly="True" Canvas.Left="26" Canvas.Top="25" Width="491" ItemsSource="{Binding Deliveries}" AutoGenerateColumns="False">
+            <DataGrid IsReadOnly="True" MaxHeight="100" Canvas.Left="26" Canvas.Top="25" Width="491" ItemsSource="{Binding Deliveries}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding Path=ID}"/>
                     <DataGridTextColumn Header="Дата" Binding="{Binding Path=Date}"/>
                     <DataGridTextColumn Header="ФИО грузчика" Binding="{Binding Path=loader.FullName}"/>
-                    <DataGridTextColumn Header="ID предмета" Binding="{Binding Path=Item_ID}"/>
                     <DataGridTextColumn Header="Название предмета" Binding="{Binding Path=storage.item.Name}"/>
                     <DataGridTextColumn Header="ID в хранилище" Binding="{Binding Path=Storage_ID}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <DataGrid IsReadOnly="True" Canvas.Left="26" Canvas.Top="149" Width="491" AutoGenerateColumns="False" ItemsSource="{Binding Issues}">
+            <DataGrid IsReadOnly="True" Canvas.Left="26" MaxHeight="100" Canvas.Top="149" Width="491" AutoGenerateColumns="False" ItemsSource="{Binding Issues}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding Path=ID}"/>
                     <DataGridTextColumn Header="Дата" Binding="{Binding Path=Date}"/>
                     <DataGridTextColumn Header="ФИО грузчика" Binding="{Binding Path=loader.FullName}"/>
-                    <DataGridTextColumn Header="ID предмета" Binding="{Binding Path=Item_ID}"/>
                     <DataGridTextColumn Header="Название предмета" Binding="{Binding Path=storage.item.Name}"/>
                     <DataGridTextColumn Header="ID в хранилище" Binding="{Binding Path=Storage_ID}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <DataGrid Height="100" Canvas.Left="26" Canvas.Top="270" Width="491" AutoGenerateColumns="True" ItemsSource="{Binding Loaders, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedLoader}">
+            <DataGrid IsReadOnly="True" MaxHeight="100" Canvas.Left="26" Canvas.Top="270" Width="491" AutoGenerateColumns="False" ItemsSource="{Binding OperationalLoader, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedLoader}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="PN" Binding="{Binding Path=PN}"/>
                     <DataGridTextColumn Header="Имя" Binding="{Binding Path=First_Name}"/>
@@ -37,16 +33,16 @@
                     <DataGridTextColumn Header="Дата рождения" Binding="{Binding Path=Date_of_Birth}"/>
                     <DataGridTextColumn Header="Паспорт" Binding="{Binding Path=passport_ID}"/>
                     <DataGridTextColumn Header="Дата приема" Binding="{Binding Path=Hiring_date}"/>
-                    <DataGridTextColumn Header="Дата увольнения" Binding="{Binding Path=Dismissal_date}"/>
                 </DataGrid.Columns>
             </DataGrid>
-            <DataGrid Height="100" Canvas.Left="26" Canvas.Top="394" Width="491" AutoGenerateColumns="True" ItemsSource="{Binding Items, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedItem}">
+            <DataGrid IsReadOnly="True" MaxHeight="100" Canvas.Left="26" Canvas.Top="394" Width="491" AutoGenerateColumns="False" ItemsSource="{Binding Items, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedItem}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Binding="{Binding Path=Item_ID}"/>
                     <DataGridTextColumn Header="Название" Binding="{Binding Path=Name}"/>
                     <DataGridTextColumn Header="Свойство" Binding="{Binding Path=Properities}"/>
                     <DataGridTextColumn Header="Производитель" Binding="{Binding Path=Manufacturer}"/>
-                    <DataGridTextColumn Header="Тип" Binding="{Binding Path=Type_ID}"/>
+                    <DataGridTextColumn Header="Тип ID" Binding="{Binding Path=Type_ID}"/>
+                    <DataGridTextColumn Header="Тип" IsReadOnly="True" Binding="{Binding Path=type.Type}"/>
                 </DataGrid.Columns>
             </DataGrid>
             <Label Content="Доставка" Canvas.Left="26" FontFamily="Rockwell Extra Bold"/>
@@ -55,23 +51,13 @@
             <Label Content="Предметы" Canvas.Left="26" Canvas.Top="370" FontFamily="Rockwell Extra Bold"/>
             <GroupBox Header="Доставка" Height="100" Canvas.Left="533" Canvas.Top="25" Width="224">
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Button Content="Добавить" Style="{StaticResource RoundedButtonStyle}" Command="{Binding OpenAddDeliveryWindow}"/>
-                    <Button Content="Удалить" Grid.Row="1" VerticalAlignment="Top" Height="38" Style="{StaticResource RoundedButtonStyle}" Background="#FF2B4068"/>
+                    <Button Content="Добавить" Style="{StaticResource ButtonStyle}" Command="{Binding OpenAddDeliveryWindow}" Background="#FF2B4068"/>
                 </Grid>
             </GroupBox>
 
             <GroupBox Header="Отставка" Height="100" Canvas.Left="533" Canvas.Top="149" Width="224">
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Button Content="Добавить" Style="{StaticResource RoundedButtonStyle}" Command="{Binding OpenAddIssueWindow}"/>
-                    <Button Content="Удалить" Grid.Row="1" VerticalAlignment="Top" Height="38" Style="{StaticResource RoundedButtonStyle}" Background="#FF787533"/>
+                    <Button Content="Добавить" Style="{StaticResource ButtonStyle}" Command="{Binding OpenAddIssueWindow}" Background="#FF787533"/>
                 </Grid>
             </GroupBox>
 
@@ -81,8 +67,8 @@
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Button Content="Сохранить изменения" Style="{StaticResource RoundedButtonStyle}" Command="{Binding SaveChangesDB}"/>
-                    <Button Content="Удалить" Grid.Row="1" VerticalAlignment="Top" Height="38" Style="{StaticResource RoundedButtonStyle}" CommandParameter="{Binding SelectedLoader}" Command="{Binding DeleteItemLoader}">
+                    <Button Content="Добавить грузчика" Style="{StaticResource RoundedButtonStyle}" Command="{Binding OpenAddOperator}"/>
+                    <Button Content="Удалить" Grid.Row="1" VerticalAlignment="Top" Height="38" Style="{StaticResource RoundedButtonStyle}" Command="{Binding DeleteLoader}">
                         <Button.Background>
                             <LinearGradientBrush EndPoint="0.2,1" MappingMode="RelativeToBoundingBox" StartPoint="0.4,-1">
                                 <GradientStop Color="Black"/>
@@ -99,8 +85,8 @@
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Button Content="Сохранить изменения" Style="{StaticResource RoundedButtonStyle}" Command="{Binding SaveChangesDB}"/>
-                    <Button Content="Удалить" Grid.Row="1" VerticalAlignment="Top" Height="38" Style="{StaticResource RoundedButtonStyle}" CommandParameter="{Binding SelectedItem}" Command="{Binding DeleteItemLoader}">
+                    <Button Content="Добавить предмет" Style="{StaticResource RoundedButtonStyle}" Command="{Binding OpenAddItem}"/>
+                    <Button Content="Удалить" Grid.Row="1" VerticalAlignment="Top" Height="38" Style="{StaticResource RoundedButtonStyle}" CommandParameter="{Binding SelectedItem}" Command="{Binding DeleteItem}">
                         <Button.Background>
                             <LinearGradientBrush StartPoint="0.2,1" MappingMode="RelativeToBoundingBox" EndPoint="0.4,-1">
                                 <GradientStop Color="Black"/>
@@ -110,7 +96,15 @@
                     </Button>
                 </Grid>
             </GroupBox>
-            <Rectangle Fill="Black" Height="500" Canvas.Left="762" Stroke="Black" Width="4"/>
+            <Rectangle Height="500" Canvas.Left="762" Width="4">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="1"/>
+                        <GradientStop Color="White"/>
+                        <GradientStop Color="#FF050505" Offset="0.332"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
             <Image Height="239" Canvas.Left="771" Canvas.Top="10" Width="229" Source="/Arsenal;component/Images/LogoPolice_UA.jpg"/>
             <Image Height="224" Canvas.Left="771" Canvas.Top="270" Width="229" Source="/Arsenal;component/Images/Anarchy.jpg"/>
 

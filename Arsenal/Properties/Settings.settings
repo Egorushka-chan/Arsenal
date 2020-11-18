@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="BaseConnection" Type="System.String" Scope="User">
-      <Value Profile="(Default)">server = localhost;port = 3306;username=root;password=root;database=trpo</Value>
+      <Value Profile="(Default)">server = localhost;port = 3306;username=root;password=root;database=arsenal</Value>
     </Setting>
   </Settings>
 </SettingsFile>

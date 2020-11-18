@@ -1,0 +1,19 @@
+﻿<Window x:Class="Arsenal.Views.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Arsenal.Views"
+        mc:Ignorable="d"
+        Title="Настройки" Height="300" Width="300" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Настройки" Margin="10,22,10,10" HorizontalAlignment="Center" FontSize="30" TextDecorations="Underline"/>
+        <Button Content="Cамоувольнение" Margin="50,30,50,30" Grid.Row="1" FontSize="18" Style="{StaticResource ButtonStyle}" Background="#FF402828" Command="{Binding HireMyself}"/>
+        <Button Content="Выход из пользователя" Margin="50,30,50,30" Grid.Row="2" FontSize="14" Style="{StaticResource ButtonStyle}" Command="{Binding RestartApplication}"/>
+    </Grid>
+</Window>

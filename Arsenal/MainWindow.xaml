@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Arsenal"
-        xmlns:viewModel ="clr-namespace:Arsenal.ViewModels"
+        xmlns:viewModel ="clr-namespace:Arsenal.ViewModels" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="MainWindow" Height="630" Width="1200" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" ResizeMode="CanResizeWithGrip" MinWidth="600" MinHeight="315">
     <Window.DataContext>
@@ -40,11 +40,12 @@
             </Viewbox>
             <StackPanel Grid.Row="3" Grid.ColumnSpan="3" VerticalAlignment="Stretch" HorizontalAlignment ="Stretch">
                 <Button Content="Операции с базой" Style="{DynamicResource ButtonStyle}" Margin="10,10" Height="30" Command="{Binding BaseActionOpen}"/>
-                <Button Content="Анализ" Style="{DynamicResource ButtonStyle}" Margin="10,10" Height="30" Visibility="Hidden"/>
+                <Button Content="Инвентаризация" Style="{DynamicResource ButtonStyle}" Margin="10,10" Height="30" Command="{Binding InventarisatonOpen}"/>
                 <Button Content="Операторы" Style="{DynamicResource ButtonStyle}" Margin="10,10" Height="30" Command="{Binding OperatorsOpen}"/>
-                <Button Content="История" Style="{DynamicResource ButtonStyle}" Margin="10,10" Height="30"/>
-                <Button Content="Настройки" Style="{DynamicResource ButtonStyle}" Margin="10,10" Height="30"/>
-                <Button x:Name="exitButtonMenu" Content="Выход" Style="{DynamicResource ButtonStyle}" Margin="10,50" Height="30" Background="#FF5B2525" Click="exitButton_Click"/>
+                <Button Content="История" Style="{DynamicResource ButtonStyle}" Margin="10,10" Height="30" Command="{Binding HistoryOpen}"/>
+                <Button Content="Настройки" Style="{DynamicResource ButtonStyle}" Margin="10,10" Height="30" Command="{Binding SettingsOpen}"/>
+                <Button Content="Отчеты" Style="{DynamicResource ButtonStyle}" Margin="10,10" Height="30"/>
+                <Button x:Name="exitButtonMenu" Content="Закрыть приложение" Style="{DynamicResource ButtonStyle}" Margin="10,10" Height="30" Background="#FF5B2525" Click="exitButton_Click"/>
             </StackPanel>
 
             <Viewbox Stretch="Fill" Grid.Row="2" Grid.Column="2">
@@ -74,7 +75,7 @@
                 </Rectangle.RenderTransform>
             </Rectangle>
             <Viewbox Grid.ColumnSpan="2" Stretch="Fill">
-                <Label x:Name="labelFIO" Content="вася агент" VerticalAlignment="Stretch" HorizontalAlignment ="Stretch" FontFamily="Comic Sans MS"/>
+                <Label x:Name="labelFIO" Content="{Binding CurrentOperator.FullName}" VerticalAlignment="Stretch" HorizontalAlignment ="Stretch" FontFamily="Comic Sans MS"/>
             </Viewbox>
             <Image Grid.Column="1" Grid.ColumnSpan="5" Source="Images/header.png" Stretch="Fill"/>
             <Button Content="X" Grid.Column="5" Background="Red" Foreground="White" FontFamily="Rockwell Extra Bold" Opacity="0.6" Click="exitButton_Click" />
@@ -91,7 +92,7 @@
                 <Label Content="Склад" HorizontalAlignment="Left" Margin="182,31,0,0" VerticalAlignment="Top" Height="40" Width="101"
                VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="22" FontFamily="Comic Sans MS"/>
                 <GroupBox Header="Оружие" HorizontalAlignment="Left" Height="204" Margin="28,91,0,0" VerticalAlignment="Top" Width="585">
-                    <DataGrid ColumnWidth="*" FontSize="20" x:Name="weaponTable" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Top" ItemsSource="{Binding WeaponView}">
+                    <DataGrid ColumnWidth="*" FontSize="20" x:Name="weaponTable" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Top" SelectedItem="{Binding SelectedStorage}" ItemsSource="{Binding WeaponView, UpdateSourceTrigger=PropertyChanged}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Binding="{Binding Path=ID}"/>
                             <DataGridTextColumn Header="Название" Binding="{Binding Path=item.Name}" FontWeight="Bold"/>
@@ -100,7 +101,7 @@
                     </DataGrid>
                 </GroupBox>
                 <GroupBox Header="Патроны" HorizontalAlignment="Left" Height="204" VerticalAlignment="Top" Width="494" Canvas.Left="28" Canvas.Top="352">
-                    <DataGrid IsReadOnly="True" ColumnWidth="*" FontSize="20" AutoGenerateColumns="False" x:Name="ammunitionTable" VerticalAlignment="Top" ItemsSource="{Binding AmmoView}">
+                    <DataGrid IsReadOnly="True" ColumnWidth="*" FontSize="20" AutoGenerateColumns="False" x:Name="ammunitionTable" VerticalAlignment="Top" ItemsSource="{Binding AmmoView, UpdateSourceTrigger=PropertyChanged}">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Binding="{Binding Path=ID}"/>
                             <DataGridTextColumn Header="Название" Binding="{Binding Path=item.Name}" FontWeight="Bold"/>
@@ -108,7 +109,6 @@
                         </DataGrid.Columns>
                     </DataGrid>
                 </GroupBox>
-                <Label x:Name="labelAmmoCount" ContentStringFormat="Статей хранения: {0}" Content="{Binding Items.Count}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="136" Height="26" Canvas.Left="386" Canvas.Top="570"/>
                 <Label Content="Потери" HorizontalAlignment="Left" Margin="731,32,0,0" VerticalAlignment="Top" Height="40" Width="101"
             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="22" FontFamily="Rockwell Extra Bold"/>
                 <StackPanel HorizontalAlignment="Left" Height="223" Margin="633,82,0,0" VerticalAlignment="Top" Width="289">
@@ -128,7 +128,7 @@
                 </Label>
                 <Label Content="Лучшие грузчики" HorizontalAlignment="Left" VerticalAlignment="Top" Height="40" Width="198"
             VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="22" FontFamily="Comic Sans MS" Canvas.Left="618" Canvas.Top="352"/>
-                <Label x:Name="labelFirstLoader" HorizontalAlignment="Left" VerticalAlignment="Top" Width="674" FontSize="18" Background="{x:Null}" Foreground="Gold" Canvas.Left="552" Canvas.Top="397" Height="33">
+                <Label x:Name="labelFirstLoader" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" Background="{x:Null}" Foreground="Gold" Canvas.Left="552" Canvas.Top="397" Height="33">
                     <Label.Content>
                         <Grid >
                             <Grid.ColumnDefinitions>
@@ -148,7 +148,7 @@
                         </Grid>
                     </Label.Content>
                 </Label>
-                <Label x:Name="labelSecondLoader" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="674" FontSize="18" Background="{x:Null}"  Canvas.Left="552" Canvas.Top="474" Height="33">
+                <Label x:Name="labelSecondLoader" HorizontalAlignment="Left"  VerticalAlignment="Top" FontSize="18" Background="{x:Null}"  Canvas.Left="552" Canvas.Top="474" Height="33">
                     <Label.Content>
                         <Grid >
                             <Grid.ColumnDefinitions>
@@ -168,7 +168,7 @@
                         </Grid>
                     </Label.Content>
                 </Label>
-                <Label x:Name="labelThirdLoader" HorizontalAlignment="Left" VerticalAlignment="Top" Width="355" FontSize="18" Background="{x:Null}"  Canvas.Left="552" Canvas.Top="555" Height="33">
+                <Label x:Name="labelThirdLoader" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18" Background="{x:Null}"  Canvas.Left="552" Canvas.Top="555" Height="33">
                     <Label.Content>
                         <Grid >
                             <Grid.ColumnDefinitions>
