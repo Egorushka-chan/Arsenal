@@ -25,7 +25,7 @@ namespace Arsenal.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("server = localhost;port = 3306;username=root;password=root;database=arsenal")]
+        [global::System.Configuration.DefaultSettingValueAttribute("server = localhost;port = 3306;username=root;password=tamara23;database=arsenal")]
         public string BaseConnection {
             get {
                 return ((string)(this["BaseConnection"]));

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Arsenal.Views"
         mc:Ignorable="d"
-        Title="BaseActionsWindow" Height="500" Width="1000" WindowStartupLocation="CenterScreen">
+        Title="Операции" Height="500" Width="1000" WindowStartupLocation="CenterScreen" Icon="/Arsenal;component/Images/settings.png">
     <Viewbox Stretch="Fill">
         <Canvas Height="500" Width="1000">
             <DataGrid IsReadOnly="True" MaxHeight="100" Canvas.Left="26" Canvas.Top="25" Width="491" ItemsSource="{Binding Deliveries}" AutoGenerateColumns="False">

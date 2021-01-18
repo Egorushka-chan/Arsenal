@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Arsenal.Views"
         mc:Ignorable="d"
-        Title="InventarisationWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen" MinHeight="225" MinWidth="400">
+        Title="Инвентаризация" Height="450" Width="800" WindowStartupLocation="CenterScreen" MinHeight="225" MinWidth="400" Icon="/Arsenal;component/Images/LogoPolice_UA.jpg">
     <Viewbox Stretch="Fill">
         <Canvas Height="450" Width="800">
             <ListBox Height="362" Width="563" Canvas.Left="40" Canvas.Top="50" ItemsSource="{Binding Inventarisations}">

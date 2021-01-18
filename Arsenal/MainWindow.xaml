@@ -5,11 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Arsenal"
         xmlns:viewModel ="clr-namespace:Arsenal.ViewModels" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:model ="clr-namespace:Arsenal.Models"
         mc:Ignorable="d"
         Title="MainWindow" Height="630" Width="1200" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" ResizeMode="CanResizeWithGrip" MinWidth="600" MinHeight="315">
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
+    <Window.Resources>
+        <model:SumConverter x:Key="SumConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="21"/>
@@ -44,7 +48,7 @@
                 <Button Content="Операторы" Style="{DynamicResource ButtonStyle}" Margin="10,10" Height="30" Command="{Binding OperatorsOpen}"/>
                 <Button Content="История" Style="{DynamicResource ButtonStyle}" Margin="10,10" Height="30" Command="{Binding HistoryOpen}"/>
                 <Button Content="Настройки" Style="{DynamicResource ButtonStyle}" Margin="10,10" Height="30" Command="{Binding SettingsOpen}"/>
-                <Button Content="Отчеты" Style="{DynamicResource ButtonStyle}" Margin="10,10" Height="30"/>
+                <Button Content="Отчеты" Style="{DynamicResource ButtonStyle}" Margin="10,10" Height="30" Command="{Binding ReportsOpen}"/>
                 <Button x:Name="exitButtonMenu" Content="Закрыть приложение" Style="{DynamicResource ButtonStyle}" Margin="10,10" Height="30" Background="#FF5B2525" Click="exitButton_Click"/>
             </StackPanel>
 
@@ -92,18 +96,70 @@
                 <Label Content="Склад" HorizontalAlignment="Left" Margin="182,31,0,0" VerticalAlignment="Top" Height="40" Width="101"
                VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="22" FontFamily="Comic Sans MS"/>
                 <GroupBox Header="Оружие" HorizontalAlignment="Left" Height="204" Margin="28,91,0,0" VerticalAlignment="Top" Width="585">
-                    <DataGrid ColumnWidth="*" FontSize="20" x:Name="weaponTable" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Top" SelectedItem="{Binding SelectedStorage}" ItemsSource="{Binding WeaponView, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGrid HorizontalScrollBarVisibility="Disabled" ColumnWidth="285" FontSize="20" x:Name="weaponTable" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Top" SelectedItem="{Binding SelectedStorage}" ItemsSource="{Binding WeaponView, UpdateSourceTrigger=PropertyChanged}">
+                        <DataGrid.GroupStyle>
+                            <GroupStyle>
+                                <GroupStyle.ContainerStyle>
+                                    <Style TargetType="{x:Type GroupItem}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type GroupItem}">
+                                                    <Expander IsExpanded="False" >
+                                                        <Expander.Header>
+                                                            <Grid Width="551">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition/>
+                                                                    <ColumnDefinition/>
+                                                                </Grid.ColumnDefinitions>
+                                                                <TextBlock Text="{Binding Name}" FontSize="20" VerticalAlignment="Bottom" FontWeight="Bold" />
+                                                                <TextBlock Text="{Binding Items, Converter={StaticResource SumConverter}, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" FontSize="20" Foreground="Black" FontStyle="Normal" VerticalAlignment="Bottom" />
+                                                            </Grid>
+                                                        </Expander.Header>
+                                                        <ItemsPresenter/>
+                                                    </Expander>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </GroupStyle.ContainerStyle>
+                            </GroupStyle>
+                        </DataGrid.GroupStyle>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Binding="{Binding Path=ID}"/>
                             <DataGridTextColumn Header="Название" Binding="{Binding Path=item.Name}" FontWeight="Bold"/>
                             <DataGridTextColumn Header="Количество" Binding="{Binding Path=Quantity}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </GroupBox>
                 <GroupBox Header="Патроны" HorizontalAlignment="Left" Height="204" VerticalAlignment="Top" Width="494" Canvas.Left="28" Canvas.Top="352">
-                    <DataGrid IsReadOnly="True" ColumnWidth="*" FontSize="20" AutoGenerateColumns="False" x:Name="ammunitionTable" VerticalAlignment="Top" ItemsSource="{Binding AmmoView, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGrid HorizontalScrollBarVisibility="Disabled" IsReadOnly="True" ColumnWidth="240" FontSize="20" AutoGenerateColumns="False" x:Name="ammunitionTable" VerticalAlignment="Top" ItemsSource="{Binding AmmoView, UpdateSourceTrigger=PropertyChanged}">
+                        <DataGrid.GroupStyle>
+                            <GroupStyle>
+                                <GroupStyle.ContainerStyle>
+                                    <Style TargetType="{x:Type GroupItem}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type GroupItem}">
+                                                    <Expander IsExpanded="False" >
+                                                        <Expander.Header>
+                                                            <Grid Width="460">
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition/>
+                                                                    <ColumnDefinition/>
+                                                                </Grid.ColumnDefinitions>
+                                                                <TextBlock Text="{Binding Name}" FontSize="20" VerticalAlignment="Bottom" FontWeight="Bold" />
+                                                                <TextBlock Text="{Binding Items, Converter={StaticResource SumConverter}, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" FontSize="20" Foreground="Black" FontStyle="Normal" VerticalAlignment="Bottom" />
+                                                            </Grid>
+                                                        </Expander.Header>
+                                                        <ItemsPresenter/>
+                                                    </Expander>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </GroupStyle.ContainerStyle>
+                            </GroupStyle>
+                        </DataGrid.GroupStyle>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Binding="{Binding Path=ID}"/>
                             <DataGridTextColumn Header="Название" Binding="{Binding Path=item.Name}" FontWeight="Bold"/>
                             <DataGridTextColumn Header="Количество" Binding="{Binding Path=Quantity}"/>
                         </DataGrid.Columns>

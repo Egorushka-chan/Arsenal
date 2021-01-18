@@ -5,8 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Arsenal.Views"
         mc:Ignorable="d"
-        Title="ReportsWindow" Height="450" Width="800">
+        Title="Отчеты" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="85*"/>
+            <ColumnDefinition Width="311*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Margin="10,10,10,10">
+            <Expander Header="Склад">
+                <StackPanel>
+                    <Button Content="Патроны за всё время" Style="{StaticResource ButtonStyle}" Command="{Binding AllAmmo}" Background="White" Foreground="Black" BorderBrush="{x:Null}"/>
+                    <Button Content="Оружие за всё время" Style="{StaticResource ButtonStyle}" Command="{Binding AllWeapon}" Background="White" Foreground="Black" BorderBrush="{x:Null}"/>
+                    <Button Content="Полная сводка" Style="{StaticResource ButtonStyle}" Command="{Binding AllItem}" Background="White" Foreground="Black" BorderBrush="{x:Null}"/>
+                </StackPanel>
+            </Expander>
+            <Expander Header="Работники">
+                <StackPanel>
+                    <Button Content="Лучшие" Style="{StaticResource ButtonStyle}" Command="{Binding BestLoaders}" Background="White" Foreground="Black" BorderBrush="{x:Null}"/>
+                    <Button Content="Уволенные" Style="{StaticResource ButtonStyle}" Command="{Binding HiredLoaders}" Background="White" Foreground="Black" BorderBrush="{x:Null}"/>
+                    <Button Content="Все" Style="{StaticResource ButtonStyle}" Command="{Binding AllLoaders}" Background="White" Foreground="Black" BorderBrush="{x:Null}"/>
+                </StackPanel>
+            </Expander>
+            <Expander Header="Операторы">
+                <StackPanel>
+                    <Button Content="Активность" Command="{Binding ActiveOperators}" Style="{StaticResource ButtonStyle}" Background="White" Foreground="Black" BorderBrush="{x:Null}"/>
+                    <Button Content="Бывшие операторы" Command="{Binding HiredOperators}" Style="{StaticResource ButtonStyle}" Background="White" Foreground="Black" BorderBrush="{x:Null}"/>
+                </StackPanel>
+            </Expander>
+            <Expander Header="Параметрические">
+                <StackPanel>
+                    <Button Content="История" Command="{Binding ParamAcseesInfo}" Style="{StaticResource ButtonStyle}" Background="White" Foreground="Black" BorderBrush="{x:Null}"/>
+                    <Button Content="Операторы" Command="{Binding ParamOperators}" Style="{StaticResource ButtonStyle}" Background="White" Foreground="Black" BorderBrush="{x:Null}"/>
+                </StackPanel>
+            </Expander>
+        </StackPanel>
+        <DataGrid Grid.Column="1" Margin="10" ItemsSource="{Binding CurrentTable}" IsReadOnly="True"/>
     </Grid>
 </Window>

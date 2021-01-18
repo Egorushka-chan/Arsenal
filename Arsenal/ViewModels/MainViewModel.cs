@@ -4,7 +4,6 @@ using Arsenal.Views;
 using Arsenal.Views.AddWindows;
 using Equipment_accounting.Model;
 using Word = Microsoft.Office.Interop.Word;
-using MySqlX.XDevAPI;
 using Renci.SshNet.Messages;
 using System;
 using System.Collections.Generic;
@@ -113,7 +112,7 @@ namespace Arsenal.ViewModels
             };
 
             AmmoView.GroupDescriptions.Add(new PropertyGroupDescription("item.Name"));
-            AmmoView.GroupDescriptions.Add(new PropertyGroupDescription("Quantity"));
+            WeaponView.GroupDescriptions.Add(new PropertyGroupDescription("item.Name"));
 
             var yt = from t in Loaders
                      orderby t.issue.Count + t.delivery.Count descending
@@ -149,47 +148,56 @@ namespace Arsenal.ViewModels
 
         public void Refresh()
         {
-            AmmoView.Filter = (objFilter) =>
-            {
-                if (objFilter is storage storage)
-                {
-                    return true;
-                }
+            //AmmoView.Filter = (objFilter) =>
+            //{
+            //    if (objFilter is storage storage)
+            //    {
+            //        return true;
+            //    }
 
-                MessageBox.Show("ОйОЙОЙ что то не так 41");
-                return false;
-            };
+            //    MessageBox.Show("ОйОЙОЙ что то не так 41");
+            //    return false;
+            //};
 
-            WeaponView.Filter = (objFilter) =>
-            {
-                if (objFilter is storage storage)
-                {
-                    return true;
-                }
-                MessageBox.Show("ОйОЙОЙ что то не так 41");
-                return false;
-            };
+            //WeaponView.Filter = (objFilter) =>
+            //{
+            //    if (objFilter is storage storage)
+            //    {
+            //        return true;
+            //    }
+            //    MessageBox.Show("ОйОЙОЙ что то не так 41");
+            //    return false;
+            //};
 
-            AmmoView.Filter = (objFilter) =>
-            {
-                if (objFilter is storage storage)
-                {
-                    return storage.item.type.Type == "Патрон" && storage.issue.ToList().Count == 0;
-                }
+            AmmoView.GroupDescriptions.Clear();
+            WeaponView.GroupDescriptions.Clear();
 
-                MessageBox.Show("ОйОЙОЙ что то не так 41");
-                return false;
-            };
+            AmmoView.GroupDescriptions.Add(new PropertyGroupDescription("item.Name"));
+            WeaponView.GroupDescriptions.Add(new PropertyGroupDescription("item.Name"));
 
-            WeaponView.Filter = (objFilter) =>
-            {
-                if (objFilter is storage storage)
-                {
-                    return storage.item.type.Type == "Орудие" && storage.issue.ToList().Count == 0;
-                }
-                MessageBox.Show("ОйОЙОЙ что то не так 41");
-                return false;
-            };
+            AmmoView.Refresh();
+            WeaponView.Refresh();
+            ExistingStorages.Refresh();
+            //AmmoView.Filter = (objFilter) =>
+            //{
+            //    if (objFilter is storage storage)
+            //    {
+            //        return storage.item.type.Type == "Патрон" && storage.issue.ToList().Count == 0;
+            //    }
+
+            //    MessageBox.Show("ОйОЙОЙ что то не так 41");
+            //    return false;
+            //};
+
+            //WeaponView.Filter = (objFilter) =>
+            //{
+            //    if (objFilter is storage storage)
+            //    {
+            //        return storage.item.type.Type == "Орудие" && storage.issue.ToList().Count == 0;
+            //    }
+            //    MessageBox.Show("ОйОЙОЙ что то не так 41");
+            //    return false;
+            //};
         }
 
         private void Inventarisations_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -210,7 +218,11 @@ namespace Arsenal.ViewModels
             {
                 Loses.Add($"{Loses.Count + 1} {qoe}");
             }
+
+            Refresh();
         }
+
+        #region Команды открытия форм
 
         public ICommand BaseActionOpen
         {
@@ -282,12 +294,29 @@ namespace Arsenal.ViewModels
             }
         }
 
+        public ICommand ReportsOpen
+        {
+            get
+            {
+                return new MyCommand(obj =>
+                {
+                    var w = new ReportsWindow();
+                    var vm = new ReportsViewModel()
+                    {
+                        CurrentOperator = CurrentOperator
+                    };
+                    SetData(this, vm);
+                    //vm.Initialize();
+                    w.DataContext = vm;
+                    w.Show();
+                });
+            }
+        }
+
         public ICommand InventarisatonOpen
         {
             get
             {
-
-
                 return new MyCommand(obj =>
                 {
                     var w = new InventarisationWindow();
@@ -296,6 +325,8 @@ namespace Arsenal.ViewModels
                 });
             }
         }
+
+        #endregion
 
         public inventarisation NewInventarisation { get; set; }
 
@@ -322,7 +353,6 @@ namespace Arsenal.ViewModels
             {
                 return new MyCommand(obj =>
                 {
-
                     if (NewInventarisation.Nominal_Quantity == default)
                         NewInventarisation.Nominal_Quantity = NewInventarisation.storage.Quantity;
 
